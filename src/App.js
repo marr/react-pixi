@@ -1,41 +1,35 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import logo from './logo.svg';
-import { Graphics } from 'pixi.js';
+import 'pixi.js';
 import './App.css';
+import logo from './logo.svg';
 
-const radians = (degrees) => degrees * (Math.PI / 180);
+//const radians = (degrees) => degrees * (Math.PI / 180);
+const { PIXI } = window;
 
 class App extends Component {
   componentWillMount() {
-    //this.app = new window.PIXI.Application();
+    this.app = new window.PIXI.Application();
     this.renderer = new window.PIXI.autoDetectRenderer();
   }
 
   componentDidMount() {
     const { app, renderer } = this;
-    //findDOMNode(this).appendChild(app.view);
-    findDOMNode(this).appendChild(renderer.view);
+    findDOMNode(this).appendChild(app.view);
 
-    const { PIXI } = window;
-    PIXI.loader.add('logo', './logo.svg').load((loader, resources) => {
-      const logo = new PIXI.Sprite(resources.logo.texture);
-      logo.x = renderer.width / 2;
-      logo.y = renderer.height / 2;
-      logo.anchor.x = 0.5;
-      logo.anchor.y = 0.5;
-      logo.width = 50;
-      logo.height = 50;
-      
-      const stage = new window.PIXI.Container();
-      stage.addChild(logo);
+    PIXI.loader.add('yahi', './yahi.svg').load((loader, resources) => {
+      const yahi = new PIXI.Sprite(resources.yahi.texture);
+      yahi.x = renderer.width / 2;
+      yahi.y = renderer.height / 2;
+      yahi.anchor.x = 0.5;
+      yahi.anchor.y = 0.5;
+      yahi.width = 64;
+      yahi.height = 64;
+      app.stage.addChild(yahi);
 
-      renderer.render(stage);
-      //app.stage.addChildAt(logo, 0);
-      //app.stage.addChild(logo);
-      //app.ticker.add(() => {
-        //logo.rotation -= 0.02;
-      //});
+      app.ticker.add(() => {
+        yahi.rotation -= 0.02;
+      });
     });
 
 
